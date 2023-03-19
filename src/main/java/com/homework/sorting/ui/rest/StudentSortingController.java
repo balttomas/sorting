@@ -31,7 +31,7 @@ public class StudentSortingController {
     return studentService.randomizeStudents(amount);
   }
 
-  @PostMapping()
+  @PostMapping("/sorting")
   public StudentResult sortWithBubble(@RequestBody Student[] students,
       @RequestParam(value = "type", defaultValue = "MERGE") SorterType type) {
     return studentService.sort(students, type);
