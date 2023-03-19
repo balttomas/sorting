@@ -1,8 +1,16 @@
 package com.homework.sorting.sorter;
 
+import com.homework.sorting.domain.SorterType;
 import com.homework.sorting.domain.Student;
+import org.springframework.stereotype.Service;
 
+@Service
 public class HeapSort implements Sorting {
+
+  @Override
+  public SorterType type() {
+    return SorterType.HEAP;
+  }
 
   @Override
   public Student[] sort(Student[] students){
