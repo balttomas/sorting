@@ -13,49 +13,46 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/students/sorting")
+@RequestMapping("/students")
 public class StudentSortingController {
 
-  private final StudentService sorterService;
+  private final StudentService studentService;
 
   @Autowired
-  public StudentSortingController(StudentService sorterService) {
-    this.sorterService = sorterService;
+  public StudentSortingController(StudentService studentService) {
+    this.studentService = studentService;
+  }
+
+  @GetMapping("/sorting/types")
+  public Set<SorterType> availableTypes() {
+    return studentService.supportedTypes();
   }
 
   @GetMapping()
-  public Student[] test() {
-    Student student1 = new Student("Jan Peterson", 8.7);
-    Student student2 = new Student("Jessie Peterson", 9.7);
-    Student student3 = new Student("Jolanta Smailyte", 7.73);
-
-    return new Student[]{student1, student2, student3};
-  }
-
-  @GetMapping("/types")
-  public Set<SorterType> availableTypes() {
-    return sorterService.supportedTypes();
+  public Student[] findStudents(
+      @RequestParam(value = "amount", defaultValue = "20") int amount) {
+    return studentService.randomizeStudents(amount);
   }
 
   @PostMapping()
   public Student[] sortWithBubble(@RequestBody Student[] students,
       @RequestParam(value = "type", defaultValue = "MERGE") SorterType type) {
-    return sorterService.sort(students, type);
+    return studentService.sort(students, type);
   }
 
-  @PostMapping("/bubble")
+  @PostMapping("/sorting/bubble")
   public Student[] sortWithBubble(@RequestBody Student[] students) {
-    return sorterService.sortWithBubble(students);
+    return studentService.sortWithBubble(students);
   }
 
-  @PostMapping("/heap")
+  @PostMapping("/sorting/heap")
   public Student[] sortWithHeap(@RequestBody Student[] students) {
-    return sorterService.sortWithHeap(students);
+    return studentService.sortWithHeap(students);
   }
 
-  @PostMapping("/merge")
+  @PostMapping("/sorting/merge")
   public Student[] sortWithMerge(@RequestBody Student[] students) {
-    return sorterService.sortWithMerge(students);
+    return studentService.sortWithMerge(students);
   }
 
 }

@@ -16,4 +16,6 @@ public interface StudentService {
 
   Student[] sortWithMerge(Student[] students);
 
+  Student[] randomizeStudents(int amountOfStudents);
+
 }

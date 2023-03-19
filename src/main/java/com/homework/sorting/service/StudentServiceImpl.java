@@ -10,10 +10,13 @@ import org.springframework.stereotype.Service;
 public class StudentServiceImpl implements StudentService {
 
   private final SortersContainer sortersContainer;
+  private final StudentRepository studentRepository;
 
   @Autowired
-  public StudentServiceImpl(SortersContainer sortersContainer) {
+  public StudentServiceImpl(SortersContainer sortersContainer,
+      StudentRepository studentRepository) {
     this.sortersContainer = sortersContainer;
+    this.studentRepository = studentRepository;
   }
 
   @Override
@@ -39,6 +42,11 @@ public class StudentServiceImpl implements StudentService {
   @Override
   public Student[] sortWithMerge(Student[] students) {
     return sortersContainer.findSorter(SorterType.MERGE).sort(students);
+  }
+
+  @Override
+  public Student[] randomizeStudents(int amountOfStudents) {
+    return studentRepository.randomize(amountOfStudents);
   }
 
 }
