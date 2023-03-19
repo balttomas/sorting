@@ -1,5 +1,8 @@
 package com.homework.sorting.sorter;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import com.homework.sorting.domain.Student;
 import com.homework.sorting.sorter.api.BubbleSort;
 import com.homework.sorting.sorter.api.Sorting;
@@ -17,7 +20,8 @@ class BubbleSortTest {
 
     Student[] result = sorter.sort(new Student[]{student1, student2, student3});
 
-
+    assertNotNull(result);
+    assertArrayEquals(new Student[]{student3, student1, student2}, result);
   }
 
 }
