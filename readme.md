@@ -1,4 +1,4 @@
-# Benchmarking sorting algorithms
+# Sorting algorithms
 
 ### Supported algorithms:
 * BUBBLE
