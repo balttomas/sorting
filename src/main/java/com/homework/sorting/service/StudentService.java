@@ -2,19 +2,20 @@ package com.homework.sorting.service;
 
 import com.homework.sorting.domain.SorterType;
 import com.homework.sorting.domain.Student;
+import com.homework.sorting.domain.StudentResult;
 import java.util.Set;
 
 public interface StudentService {
 
   Set<SorterType> supportedTypes();
 
-  Student[] sort(Student[] students, SorterType sorterType);
+  StudentResult sort(Student[] students, SorterType sorterType);
 
-  Student[] sortWithBubble(Student[] students);
+  StudentResult sortWithBubble(Student[] students);
 
-  Student[] sortWithHeap(Student[] students);
+  StudentResult sortWithHeap(Student[] students);
 
-  Student[] sortWithMerge(Student[] students);
+  StudentResult sortWithMerge(Student[] students);
 
   Student[] randomizeStudents(int amountOfStudents);
 

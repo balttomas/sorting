@@ -20,7 +20,7 @@ public class SortersContainer {
     sortersByType = availableSorters.stream().collect(toMap(Sorting::type, sorting -> sorting));
   }
 
-  public Sorting findSorter(SorterType sorterType){
+  public Sorting pickSorter(SorterType sorterType){
     return sortersByType.get(sorterType);
   }
 

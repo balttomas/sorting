@@ -2,22 +2,21 @@ package com.homework.sorting.service;
 
 import com.homework.sorting.domain.SorterType;
 import com.homework.sorting.domain.Student;
+import com.homework.sorting.domain.StudentResult;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Set;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class StudentServiceImpl implements StudentService {
 
   private final SortersContainer sortersContainer;
   private final StudentRepository studentRepository;
-
-  @Autowired
-  public StudentServiceImpl(SortersContainer sortersContainer,
-      StudentRepository studentRepository) {
-    this.sortersContainer = sortersContainer;
-    this.studentRepository = studentRepository;
-  }
 
   @Override
   public Set<SorterType> supportedTypes() {
@@ -25,28 +24,38 @@ public class StudentServiceImpl implements StudentService {
   }
 
   @Override
-  public Student[] sort(Student[] students, SorterType sorterType) {
-    return sortersContainer.findSorter(sorterType).sort(students);
+  public StudentResult sort(Student[] students, SorterType sorterType) {
+    return evaluateSortingResult(students, sorterType);
   }
 
   @Override
-  public Student[] sortWithBubble(Student[] students) {
-    return sortersContainer.findSorter(SorterType.BUBBLE).sort(students);
+  public StudentResult sortWithBubble(Student[] students) {
+    return evaluateSortingResult(students, SorterType.BUBBLE);
   }
 
   @Override
-  public Student[] sortWithHeap(Student[] students) {
-    return sortersContainer.findSorter(SorterType.HEAP).sort(students);
+  public StudentResult sortWithHeap(Student[] students) {
+    return evaluateSortingResult(students, SorterType.HEAP);
   }
 
   @Override
-  public Student[] sortWithMerge(Student[] students) {
-    return sortersContainer.findSorter(SorterType.MERGE).sort(students);
+  public StudentResult sortWithMerge(Student[] students) {
+    return evaluateSortingResult(students, SorterType.MERGE);
   }
 
   @Override
   public Student[] randomizeStudents(int amountOfStudents) {
     return studentRepository.randomize(amountOfStudents);
+  }
+
+  private StudentResult evaluateSortingResult(Student[] unsortedStudents, SorterType sorterType) {
+    Student[] students = unsortedStudents.clone();
+    Instant start = Instant.now();
+    Student[] result = sortersContainer.pickSorter(sorterType).sort(students);
+    Instant finish = Instant.now();
+    long duration = Duration.between(start, finish).toMillis();
+    log.info("Sorted {} students with {} in {} ms", students.length, sorterType, duration);
+    return new StudentResult(duration, result);
   }
 
 }
