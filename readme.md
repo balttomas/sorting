@@ -16,3 +16,5 @@ Sorting with provided students in body:
 * POST localhost:8080/students/sorting/bubble
 * POST localhost:8080/students/sorting/heap
 * POST localhost:8080/students/sorting/merge
+
+For more sample follow [postman collection](https://github.com/balttomas/sorting/blob/main/sorting.postman_collection.json)
