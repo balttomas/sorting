@@ -1,4 +1,4 @@
-package com.homework.sorting.sorter.api;
+package com.homework.sorting.sorter;
 
 import com.homework.sorting.domain.Student;
 
@@ -6,6 +6,10 @@ public class BubbleSort implements Sorting {
 
   @Override
   public Student[] sort(Student[] students) {
+    if (students.length < 2) {
+      return students;
+    }
+
     int i = 0;
     int studentsAmount = students.length;
     boolean swapNeeded = true;

@@ -4,8 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.homework.sorting.domain.Student;
-import com.homework.sorting.sorter.api.BubbleSort;
-import com.homework.sorting.sorter.api.Sorting;
+
 import org.junit.jupiter.api.Test;
 
 class BubbleSortTest {

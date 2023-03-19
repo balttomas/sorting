@@ -1,4 +1,4 @@
-package com.homework.sorting.sorter.api;
+package com.homework.sorting.sorter;
 
 import com.homework.sorting.domain.Student;
 
